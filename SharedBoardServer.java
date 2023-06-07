@@ -62,7 +62,10 @@ class SharedBoardServer {
                 byte version = request[0];
                 byte code = request[1];
                 System.out.println("Message code: "+code);
-
+                if(code == 1){
+                    clientSocket.close();
+                    System.out.println("Connection closed with client: "+clientSocket.getInetAddress());
+                }
                 if (code == 4) {
                     System.out.println("Processing AUTH request: "+code);
                     // AUTH request
@@ -101,7 +104,7 @@ class SharedBoardServer {
 
     private static boolean authenticate(String username, String password) {
         // Authentication logic to be extended...
-        return username.equals("admin") && password.equals("password");
+        return (username.equals("admin") && password.equals("password"));
     }
 
     private static byte[] createResponse(int code, String message) {
