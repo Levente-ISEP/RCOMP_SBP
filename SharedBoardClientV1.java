@@ -46,10 +46,11 @@ class SharedBoardClientV1 {
                 authenticate(sock, username, password);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Something unexpected happened!");
         }
 
         while(true) { // read messages from the console and send them to the server
+            System.out.print("console: ");
             frase=in.readLine();
             //Disconnection request to server == END CONNECTION WITH CLIENT
             if(frase.compareTo("DISCONN")==0) {
