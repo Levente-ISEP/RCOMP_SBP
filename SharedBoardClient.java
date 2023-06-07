@@ -35,16 +35,17 @@ public class SharedBoardClient {
             // Authenticate client
             System.out.print("Username: "); username = in.readLine();
             System.out.print("password: "); password = in.readLine();
-            while(!authenticate(sock, username, password)){
+            boolean authenticated = authenticate(sock, username, password);
+            while(!authenticated){
                 System.out.println("Authentication failed. Please check your credentials.");
                 System.out.print("Username: "); username = in.readLine();
                 System.out.print("Username: "); password = in.readLine();
+                authenticate(sock, username, password);
             }
             System.out.println("User authenticated successfully!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private static boolean authenticate(Socket socket, String username, String password) throws IOException {
