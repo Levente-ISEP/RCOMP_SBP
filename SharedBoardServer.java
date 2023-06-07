@@ -54,8 +54,10 @@ class SharedBoardServer {
             InputStream inputStream = clientSocket.getInputStream();
             byte[] request = new byte[1024];
             int bytesRead = inputStream.read(request);
-
+            System.out.println("Reading authentication request...");
+            
             // Process the request
+            System.out.println("Processing authentication request...");
             if (bytesRead != -1) {
                 byte version = request[0];
                 byte code = request[1];
@@ -99,8 +101,7 @@ class SharedBoardServer {
 
     private static boolean authenticate(String username, String password) {
         // Authentication logic to be extended...
-        return username.equals("admin") && password.equals("password")
-                || username.equals("user") && password.equals("password");
+        return username.equals("admin") && password.equals("password");
     }
 
     private static byte[] createResponse(int code, String message) {
