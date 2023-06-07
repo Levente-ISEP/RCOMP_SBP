@@ -1,13 +1,14 @@
 import java.io.*;
 import java.net.*;
 
-class SharedBoardClient {
+public class SharedBoardClient {
     static InetAddress serverIP;
     static Socket sock;
 
+
     public static void main(String[] args) {
-         String username, password;
-        // Checks if ip address given
+        String username, password;
+
         if(args.length!=1) {
             System.out.println(
                     "Server IPv4/IPv6 address or DNS name is required as argument");
@@ -31,14 +32,15 @@ class SharedBoardClient {
 
         // Tries authentication
         try{
-             // Authenticate client
+            // Authenticate client
             System.out.print("Username: "); username = in.readLine();
-            System.out.print("Password: "); password = in.readLine();
+            System.out.print("password: "); password = in.readLine();
             while(!authenticate(sock, username, password)){
-                System.out.println("Authentication failed. Please check your credentials!");
+                System.out.println("Authentication failed. Please check your credentials.");
                 System.out.print("Username: "); username = in.readLine();
-                System.out.print("Password: "); password = in.readLine();
+                System.out.print("Username: "); password = in.readLine();
             }
+            System.out.println("User authenticated successfully!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -65,7 +67,8 @@ class SharedBoardClient {
             byte code = response[1];
 
             if (code == 2) {
-                // Authentication successful (ACK received)
+                // ACK recived
+                System.out.println("Authentication Successful!");
                 return true;
             } else if (code == 3) {
                 // Authentication failed (ERR received)
@@ -93,4 +96,5 @@ class SharedBoardClient {
 
         return request;
     }
+
 }
