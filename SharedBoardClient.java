@@ -1,9 +1,7 @@
-package org.example;
-
 import java.io.*;
 import java.net.*;
 
-public class SharedBoardClient {
+class SharedBoardClient {
     static InetAddress serverIP;
     static Socket sock;
 
