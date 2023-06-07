@@ -32,7 +32,6 @@ class SharedBoardClientV1 {
 
 
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        DataOutputStream sOut = new DataOutputStream(sock.getOutputStream());
 
         // Tries authentication
         try{
@@ -46,7 +45,6 @@ class SharedBoardClientV1 {
                 System.out.print("Username: "); password = in.readLine();
                 authenticate(sock, username, password);
             }
-            System.out.println("AUTHENTICATION Successful!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -61,14 +59,14 @@ class SharedBoardClientV1 {
                 }
 
             } else if (frase.compareTo("COMMTEST")==0) {
-
+                communicationTest(sock);
             }
         }
         sock.close();
 
 
     }
-    private static boolean communicationTest(Socket socket) throws IOException{
+    private static void communicationTest(Socket socket) throws IOException{
         byte[] commtestRequest = createCommunicationTestRequest();
 
         // Send the DISCONN request to the server
@@ -87,7 +85,6 @@ class SharedBoardClientV1 {
             if (code == 2) {
                 // ACK recived
                 System.out.println("Connection live");
-                return true;
             } else if (code == 3) {
                 // Disconnection failed (ERR received)
                 System.out.println("Disconnection error: " + new String(response, 4, bytesRead - 4));
@@ -95,7 +92,6 @@ class SharedBoardClientV1 {
                 System.out.println("Unexpected response from server: " + code);
             }
         }
-        return false;
     }
     private static byte[] createCommunicationTestRequest(){
             byte[] request = new byte[4];
@@ -197,5 +193,4 @@ class SharedBoardClientV1 {
 
         return request;
     }
-
 }
