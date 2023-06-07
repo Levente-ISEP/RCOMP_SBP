@@ -48,7 +48,7 @@ class SharedBoardServer {
         }
     }
 
-    pprivate static void handleClient(Socket clientSocket) {
+    private static void handleClient(Socket clientSocket) {
         try {
             // Read the request from the client
             InputStream inputStream = clientSocket.getInputStream();
