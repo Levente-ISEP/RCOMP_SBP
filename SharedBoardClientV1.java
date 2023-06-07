@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 
-class SharedBoardClient {
+class SharedBoardClientV1 {
     static InetAddress serverIP;
     static Socket sock;
 
