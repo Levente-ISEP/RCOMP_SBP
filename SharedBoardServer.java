@@ -24,7 +24,7 @@ class SharedBoardServer {
 
     public static void main(String[] args) throws Exception{
         try { sock = new ServerSocket(9999);
-            System.out.println("Server running on port " + SharedBoardServer.sock);
+            System.out.println("====SBC V0.1====\nServer running on port " + SharedBoardServer.sock);
         }
         catch(IOException ex) {
             System.out.println("Local port number not available.");
