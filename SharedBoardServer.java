@@ -94,10 +94,6 @@ class SharedBoardServer {
                     System.out.println("Unexpected request code received: " + code);
                 }
             }
-
-            // Close the client socket
-            clientSocket.close();
-            System.out.println("Client disconnected: " + clientSocket.getInetAddress());
         } catch (IOException e) {
             e.printStackTrace();
         }
