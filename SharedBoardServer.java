@@ -48,21 +48,23 @@ class SharedBoardServer {
         }
     }
 
-    private static void handleClient(Socket clientSocket) {
+    pprivate static void handleClient(Socket clientSocket) {
         try {
             // Read the request from the client
             InputStream inputStream = clientSocket.getInputStream();
             byte[] request = new byte[1024];
             int bytesRead = inputStream.read(request);
-            System.out.println("Reading authentication request...");
-            
+            System.out.println("Reading request...");
+
             // Process the request
-            System.out.println("Processing authentication request...");
+            System.out.println("Processing request...");
             if (bytesRead != -1) {
                 byte version = request[0];
                 byte code = request[1];
+                System.out.println("Message code: "+code);
 
                 if (code == 4) {
+                    System.out.println("Processing AUTH request: "+code);
                     // AUTH request
                     byte[] usernameBytes = new byte[request[2]];
                     byte[] passwordBytes = new byte[request[3]];
