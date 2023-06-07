@@ -1,5 +1,3 @@
-package org.example;
-
 import java.io.*;
 import java.net.*;
 
@@ -63,13 +61,51 @@ public class SharedBoardClient {
                 }
 
             } else if (frase.compareTo("COMMTEST")==0) {
-                
+
             }
         }
         sock.close();
 
 
     }
+    private static boolean communicationTest(Socket socket) throws IOException{
+        byte[] commtestRequest = createCommunicationTestRequest();
+
+        // Send the DISCONN request to the server
+        OutputStream outputStream = socket.getOutputStream();
+        outputStream.write(commtestRequest);
+        outputStream.flush();
+        // Read the response from the server
+        InputStream inputStream = socket.getInputStream();
+        byte[] response = new byte[1024];
+        int bytesRead = inputStream.read(response);
+        // Process the response
+        if (bytesRead != -1) {
+            byte version = response[0];
+            byte code = response[1];
+
+            if (code == 2) {
+                // ACK recived
+                System.out.println("Connection live");
+                return true;
+            } else if (code == 3) {
+                // Disconnection failed (ERR received)
+                System.out.println("Disconnection error: " + new String(response, 4, bytesRead - 4));
+            } else {
+                System.out.println("Unexpected response from server: " + code);
+            }
+        }
+        return false;
+    }
+    private static byte[] createCommunicationTestRequest(){
+            byte[] request = new byte[4];
+            request[0] = 1; // Version
+            request[1] = 0; // COMMTEST code
+            request[2] = 0;
+            request[3] = 0;
+
+            return request;
+        }
     private static boolean disconnect(Socket socket) throws IOException{
         // Prepare the DISCONN request
         byte[] disconnRequest = createDisconnectRequest();
