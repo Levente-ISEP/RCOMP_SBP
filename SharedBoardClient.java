@@ -35,7 +35,7 @@ class SharedBoardClient {
             System.out.print("Username: "); username = in.readLine();
             System.out.print("Password: "); password = in.readLine();
             while(!authenticate(sock, username, password)){
-                System.out.println("Authentication failed. Please check your credentials.");
+                System.out.println("Authentication failed. Please check your credentials!");
                 System.out.print("Username: "); username = in.readLine();
                 System.out.print("Password: "); password = in.readLine();
             }
