@@ -76,9 +76,11 @@ class SharedBoardServer {
                     String password = new String(passwordBytes);
 
                     // Perform authentication
+                    System.out.println("Authenticating client...");
                     boolean authenticated = authenticate(username, password);
 
                     // Send the response to the client
+                    System.out.println("Responding to client...");
                     OutputStream outputStream = clientSocket.getOutputStream();
                     if (authenticated) {
                         byte[] response = createResponse(2, "Authentication successful");
