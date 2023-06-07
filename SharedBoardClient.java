@@ -21,7 +21,7 @@ class SharedBoardClient {
         try { sock = new Socket(serverIP, 9999);
 
             // Authenticate client
-            boolean authenticated = authenticate(sock, "username", "password");
+            boolean authenticated = authenticate(sock, System.console().readLine("USERNAME:"), System.console().readLine("PASSWORD:"));
             if (authenticated) {
                 System.out.println("User authenticated successfully!");
             } else {
