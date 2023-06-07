@@ -6,6 +6,8 @@ class SharedBoardClient {
     static Socket sock;
 
     public static void main(String[] args) {
+         String username, password;
+        // Checks if ip address given
         if(args.length!=1) {
             System.out.println(
                     "Server IPv4/IPv6 address or DNS name is required as argument");
@@ -19,18 +21,30 @@ class SharedBoardClient {
 
         // Tries connection
         try { sock = new Socket(serverIP, 9999);
-
-            // Authenticate client
-            boolean authenticated = authenticate(sock, System.console().readLine("USERNAME: "), System.console().readLine("PASSWORD: "));
-            if (authenticated) {
-                System.out.println("User authenticated successfully!");
-            } else {
-                System.out.println("Authentication failed. Please check your credentials.");
-            }
         }
         catch(IOException ex) {
             System.out.println("Failed to connect.");
             System.exit(1); }
+
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+        // Tries authentication
+        try{
+            // Authenticate client
+            System.out.print("Username: "); username = in.readLine();
+            System.out.print("password: "); password = in.readLine();
+            boolean authenticated = authenticate(sock, username, password);
+            while(!authenticated){
+                System.out.println("Authentication failed. Please check your credentials.");
+                System.out.print("Username: "); username = in.readLine();
+                System.out.print("Username: "); password = in.readLine();
+                authenticated = authenticate(sock, System.console().readLine("USERNAME:"), System.console().readLine("PASSWORD:"));
+            }
+            System.out.println("User authenticated successfully!");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
