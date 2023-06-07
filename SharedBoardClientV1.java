@@ -50,7 +50,7 @@ class SharedBoardClientV1 {
         }
 
         while(true) { // read messages from the console and send them to the server
-            System.out.print("console: ");
+            System.out.println("DISCONN to disconnect, COMMTEST to test connection");
             frase=in.readLine();
             //Disconnection request to server == END CONNECTION WITH CLIENT
             if(frase.compareTo("DISCONN")==0) {
