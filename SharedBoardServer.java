@@ -65,8 +65,8 @@ class SharedBoardServer {
                     byte[] usernameBytes = new byte[request[2]];
                     byte[] passwordBytes = new byte[request[3]];
 
-                    //System.arraycopy(request, 4, usernameBytes, 0, usernameBytes.length);
-                    //System.arraycopy(request, 4 + usernameBytes.length, passwordBytes, 0, passwordBytes.length);
+                    System.arraycopy(request, 4, usernameBytes, 0, usernameBytes.length);
+                    System.arraycopy(request, 4 + usernameBytes.length, passwordBytes, 0, passwordBytes.length);
 
                     String username = new String(usernameBytes);
                     String password = new String(passwordBytes);
@@ -98,9 +98,7 @@ class SharedBoardServer {
     }
 
     private static boolean authenticate(String username, String password) {
-        // Perform authentication logic here
-        // You can implement your own authentication mechanism
-        // For demonstration purposes, we'll assume authentication is successful if username is "admin" and password is "password"
+        // Authentication logic to be extended...
         return username.equals("admin") && password.equals("password")
                 || username.equals("user") && password.equals("password");
     }
