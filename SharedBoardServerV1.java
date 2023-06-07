@@ -3,7 +3,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
-class SharedBoardServer {
+class SharedBoardServerV1 {
 
     private static HashMap<Socket,DataOutputStream> cliList = new HashMap<>();
     public static synchronized void sendToAll(int len, byte[] data) throws Exception {
