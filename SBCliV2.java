@@ -68,7 +68,7 @@ class SBCliV2 {
 
         // Receive and process server response
         byte[] response = receiveResponse(socket);
-        return response[0] == 2; // Check if the response is ACK
+        return (response[1] == 2); // Check if the response is ACK
     }
 
     private static void sendRequest(Socket socket, int code, byte[] data) throws IOException {
@@ -96,25 +96,33 @@ class SBCliV2 {
 
     private static byte[] receiveResponse(Socket socket) throws IOException {
         InputStream inputStream = socket.getInputStream();
-        byte[] inputData = inputStream.readAllBytes();
+
         // Read the SBP message version
-        int version = inputData[0];
+        int version = inputStream.read();
 
         // Read the SBP message code
-        int code = inputData[1];
+        int code = inputStream.read();
 
         // Read the data length fields
-        int dLength1 = inputData[2];
-        int dLength2 = inputData[3];
+        int dLength1 = inputStream.read();
+        int dLength2 = inputStream.read();
         int dataLength = dLength1 + 256 * dLength2;
 
         // Read the data field
         byte[] data = new byte[dataLength];
         if (dataLength > 0) {
-            int bytesRead = inputData[4];
+            int bytesRead = inputStream.read(data);
             if (bytesRead != dataLength) {
                 throw new IOException("Failed to read complete data field");
             }
+        }
+        byte[] message = new byte[4+dataLength];
+        message[0] = (byte) version;
+        message[1] = (byte) code;
+        message[2] = (byte) dLength1;
+        message[3] = (byte) dLength2;
+        if (dataLength > 0) {
+            System.arraycopy(data, 0, message, 4, dataLength);
         }
 
         // Process the received response
@@ -129,7 +137,6 @@ class SBCliV2 {
                 System.out.println("Received unknown message with code: " + code);
                 break;
         }
-
-        return inputData;
+        return message;
     }
 }
