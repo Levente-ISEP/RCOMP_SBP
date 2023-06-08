@@ -56,6 +56,7 @@ class SBCliV2 {
                 // Receive and process server responses
                 receiveResponse(sock);}}
         // Close the TCP connection
+        System.out.println("Bye bye...");
         sock.close();
     }
 
