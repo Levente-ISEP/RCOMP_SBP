@@ -41,6 +41,7 @@ class SBSrvV2  {
                     try {processRequests(clientSocket);
                     } catch (IOException e) {throw new RuntimeException(e);}});
                 clientThread.start();
+                addCli(clientSocket);
             }
         } catch (IOException e) {
             e.printStackTrace();
