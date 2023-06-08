@@ -127,6 +127,6 @@ class SBSrvV2  {
 
         // Perform authentication logic here
         // Replace this with your actual authentication mechanism
-        return username.equals("username") && password.equals("password");
+        return (username.equals("username") && password.equals("password"));
     }
 }
