@@ -37,7 +37,9 @@ class SBCliV2 {
                 System.out.print("Username: "); password = in.readLine();
                 authenticateUser(sock, username, password);
             }
-        } catch (IOException e) {e.printStackTrace();}
+        } catch (IOException e) {
+            System.out.println("Error after authentication...");
+            e.printStackTrace();}
         while(true) { // read messages from the console and send them to the server
             System.out.println("DISCONN to disconnect, COMMTEST to test connection");
             frase=in.readLine();
