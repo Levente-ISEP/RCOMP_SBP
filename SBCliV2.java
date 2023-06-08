@@ -66,7 +66,7 @@ class SBCliV2 {
 
         // Receive and process server response
         byte[] response = receiveResponse(socket);
-        return (response.length == 1 && response[0] == 2); // Check if the response is ACK
+        return response[0] == 2; // Check if the response is ACK
     }
 
     private static void sendRequest(Socket socket, int code, byte[] data) throws IOException {
