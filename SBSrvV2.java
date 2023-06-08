@@ -87,7 +87,7 @@ class SBSrvV2  {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                    System.out.println("Client: " + clientSocket.getInetAddress() + "Disconnected");
+                    System.out.println("Client: " + clientSocket.getInetAddress() + " disconnected");
                     return; // Exit the method to close the connection
                 case 4:
                     System.out.println("Received AUTH request");
