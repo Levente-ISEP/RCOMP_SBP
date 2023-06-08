@@ -81,6 +81,12 @@ class SBSrvV2  {
                 case 1:
                     System.out.println("Received DISCONN request");
                     sendResponse(outputStream, 2, null);
+                    try {
+                        remCli(clientSocket);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    System.out.println("Client: " + clientSocket.getInetAddress() + "Disconnected");
                     return; // Exit the method to close the connection
                 case 4:
                     System.out.println("Received AUTH request");
