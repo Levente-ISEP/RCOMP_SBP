@@ -96,22 +96,22 @@ class SBCliV2 {
 
     private static byte[] receiveResponse(Socket socket) throws IOException {
         InputStream inputStream = socket.getInputStream();
-
+        byte[] inputData = inputStream.readAllBytes();
         // Read the SBP message version
-        int version = inputStream.read();
+        int version = inputData[0];
 
         // Read the SBP message code
-        int code = inputStream.read();
+        int code = inputData[1];
 
         // Read the data length fields
-        int dLength1 = inputStream.read();
-        int dLength2 = inputStream.read();
+        int dLength1 = inputData[2];
+        int dLength2 = inputData[3];
         int dataLength = dLength1 + 256 * dLength2;
 
         // Read the data field
         byte[] data = new byte[dataLength];
         if (dataLength > 0) {
-            int bytesRead = inputStream.read(data);
+            int bytesRead = inputData[4];
             if (bytesRead != dataLength) {
                 throw new IOException("Failed to read complete data field");
             }
@@ -130,6 +130,6 @@ class SBCliV2 {
                 break;
         }
 
-        return data;
+        return inputData;
     }
 }
