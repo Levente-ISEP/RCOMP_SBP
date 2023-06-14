@@ -29,12 +29,12 @@ class SBCliV2 {
         try{
             // Authenticate client
             System.out.print("Username: "); username = in.readLine();
-            System.out.print("password: "); password = in.readLine();
+            System.out.print("Password: "); password = in.readLine();
             boolean authenticated = authenticateUser(sock, username, password);
             while(!authenticated){
                 System.out.println("Authentication failed. Please check your credentials.");
                 System.out.print("Username: "); username = in.readLine();
-                System.out.print("Username: "); password = in.readLine();
+                System.out.print("Password: "); password = in.readLine();
                 authenticateUser(sock, username, password);
             }
         } catch (IOException e) {
