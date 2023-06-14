@@ -35,7 +35,7 @@ class SBCliV2 {
                 System.out.println("Authentication failed. Please check your credentials.");
                 System.out.print("Username: "); username = in.readLine();
                 System.out.print("Password: "); password = in.readLine();
-                authenticateUser(sock, username, password);
+                authenticated = authenticateUser(sock, username, password);
             }
         } catch (IOException e) {
             System.out.println("Error after authentication...");
